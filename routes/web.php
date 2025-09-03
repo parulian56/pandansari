@@ -22,8 +22,8 @@ Route::middleware('auth')->group(function () {
     // Candidate
     Route::resource('candidate', CandidateController::class);
 
-    // Result
-    Route::resource('result', ResultController::class)->only(['index', 'show']);
+    // Result (full CRUD)
+    Route::resource('result', ResultController::class);
 });
 
 require __DIR__.'/auth.php';

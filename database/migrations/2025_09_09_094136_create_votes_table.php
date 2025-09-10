@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('candidates', function (Blueprint $table) {
+        Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image'); // path atau nama file
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // masyarakat
+            $table->foreignId('calon_id')->constrained()->onDelete('cascade'); // calon
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('candidates');
+        Schema::dropIfExists('votes');
     }
 };

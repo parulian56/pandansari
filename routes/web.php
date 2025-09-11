@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\VotingController;
+use App\Http\Controllers\ResultController; // tambahin kalau dipakai
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller\PeopleController;
 
@@ -16,7 +17,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Semua route di bawah ini butuh login
+
+
+
 Route::middleware('auth')->group(function () {
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

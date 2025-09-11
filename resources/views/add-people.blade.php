@@ -1,5 +1,4 @@
-            {{-- ====== FORM MASYARAKAT ====== --}}
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-lg font-bold mb-4">Tambah Data Masyarakat</h3>
 

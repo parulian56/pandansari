@@ -16,9 +16,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-
-
 // Semua route di bawah ini butuh login
 Route::middleware('auth')->group(function () {
     // Profile routes

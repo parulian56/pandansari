@@ -5,6 +5,7 @@ use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\VotingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controller\PeopleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,9 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+
 
 // Semua route di bawah ini butuh login
 Route::middleware('auth')->group(function () {

@@ -28,11 +28,9 @@ Route::middleware('auth')->group(function () {
     // CRUD Calon
     Route::resource('calon', CalonController::class);
 
-    // Voting routes
-    Route::prefix('voting')->name('voting.')->group(function () {
-        Route::get('/', [VotingController::class, 'index'])->name('index'); // tampilkan calon untuk dicoblos
-        Route::post('/{calon}', [VotingController::class, 'vote'])->name('vote'); // aksi coblos
-    });
+    // Halaman coblos (voting) ✅
+    Route::get('/coblos', [VotingController::class, 'index'])->name('coblos.index');
+    Route::post('/coblos/{calon}', [VotingController::class, 'vote'])->name('coblos.vote');
 });
 
 require __DIR__.'/auth.php';

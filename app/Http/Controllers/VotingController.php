@@ -8,29 +8,30 @@ use Illuminate\Support\Facades\Auth;
 
 class VotingController extends Controller
 {
-    // Halaman coblos
+    // Halaman daftar calon untuk dicoblos
     public function index()
     {
-        $calon = Calon::all(); // ambil semua calon
-        return view('coblos.index', compact('calon'));
+        $calons = Calon::all(); // ambil semua calon
+        return view('voting.index', compact('calons'));
     }
 
     // Proses vote
     public function vote(Request $request, Calon $calon)
     {
+        $user = Auth::user();
+
         // Cek apakah user sudah pernah coblos
-        if (Auth::user()->sudah_vote) {
-            return redirect()->route('coblos.index')->with('error', 'Kamu sudah memilih!');
+        if ($user->sudah_vote) {
+            return redirect()->route('voting.index')->with('error', 'Kamu sudah memilih!');
         }
 
         // Tambah 1 ke suara calon
         $calon->increment('jumlah_suara');
 
         // Tandai user sudah coblos
-        $user = Auth::user();
         $user->sudah_vote = true;
         $user->save();
 
-        return redirect()->route('coblos.index')->with('success', 'Terima kasih sudah memilih!');
+        return redirect()->route('voting.index')->with('success', 'Terima kasih sudah memilih!');
     }
 }

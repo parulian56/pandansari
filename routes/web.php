@@ -3,17 +3,19 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MasyarakatController;
 use App\Http\Controllers\CalonController;
-use App\Http\Controllers\VotingController; // ✅ tambahin
+use App\Http\Controllers\VotingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Dashboard hanya bisa diakses user login + verified
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Semua route di bawah ini butuh login
 Route::middleware('auth')->group(function () {
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,9 +28,11 @@ Route::middleware('auth')->group(function () {
     // CRUD Calon
     Route::resource('calon', CalonController::class);
 
-    // Halaman coblos (voting) ✅
-    Route::get('/coblos', [VotingController::class, 'index'])->name('coblos.index');
-    Route::post('/coblos/{calon}', [VotingController::class, 'vote'])->name('coblos.vote');
+    // Voting routes
+    Route::prefix('voting')->name('voting.')->group(function () {
+        Route::get('/', [VotingController::class, 'index'])->name('index'); // tampilkan calon untuk dicoblos
+        Route::post('/{calon}', [VotingController::class, 'vote'])->name('vote'); // aksi coblos
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // masyarakat
-            $table->foreignId('calon_id')->constrained()->onDelete('cascade'); // calon
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('calon_id')->constrained('calons')->onDelete('cascade');
             $table->timestamps();
         });
     }

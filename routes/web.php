@@ -6,11 +6,13 @@ use App\Http\Controllers\CalonController;
 use App\Http\Controllers\VotingController;
 use App\Http\Controllers\ResultController; // tambahin kalau dipakai
 use Illuminate\Support\Facades\Route;
+use App\Http\Controller\PeopleController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Dashboard hanya bisa diakses user login + verified
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,11 +34,12 @@ Route::middleware('auth')->group(function () {
     // CRUD Masyarakat
     Route::resource('masyarakat', MasyarakatController::class);
 
-    // CRUD Calon ✅
+    // CRUD Calon
     Route::resource('calon', CalonController::class);
 
-    // Result
-    Route::get('/result', [ResultController::class, 'index'])->name('result.index');
+    // Halaman coblos (voting) ✅
+    Route::get('/coblos', [VotingController::class, 'index'])->name('coblos.index');
+    Route::post('/coblos/{calon}', [VotingController::class, 'vote'])->name('coblos.vote');
 });
 
 require __DIR__.'/auth.php';

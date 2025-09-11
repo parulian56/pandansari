@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +14,6 @@ class Calon extends Model
         'nama_lengkap',
         'visi',
         'misi',
-        'foto'
+        'foto',
     ];
 }

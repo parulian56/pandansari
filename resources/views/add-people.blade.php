@@ -1,4 +1,13 @@
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- Pesan sukses --}}
+            @if(session('success'))
+                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8">
                 <div class="p-6 text-gray-900">
                     <h3 class="text-lg font-bold mb-4">Tambah Data Masyarakat</h3>
 
@@ -50,3 +59,4 @@
                     </form>
                 </div>
             </div>
+        </div>

@@ -16,13 +16,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/add-calon', function () {
-    return view('add-calon');
-})->middleware(['auth', 'verified'])->name('add-calon');
 
-Route::get('/add-people', function () {
-    return view('add-people');
-})->middleware(['auth', 'verified'])->name('add-people');
+
 
 Route::get('/result', function () {
     return view('result');

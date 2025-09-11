@@ -6,7 +6,6 @@ use App\Http\Controllers\CalonController;
 use App\Http\Controllers\VotingController;
 use App\Http\Controllers\ResultController; // tambahin kalau dipakai
 use Illuminate\Support\Facades\Route;
-use App\Http\Controller\PeopleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +23,10 @@ Route::get('/add-calon', function () {
 Route::get('/add-people', function () {
     return view('add-people');
 })->middleware(['auth', 'verified'])->name('add-people');
+
+Route::get('/result', function () {
+    return view('result');
+})->middleware(['auth', 'verified'])->name('result');
 
 Route::middleware('auth')->group(function () {
     // Profile routes

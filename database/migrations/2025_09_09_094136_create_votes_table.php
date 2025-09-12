@@ -8,16 +8,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('votes', function (Blueprint $table) {
+       Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // masyarakat
-            $table->foreignId('calon_id')->constrained()->onDelete('cascade'); // calon
+            $table->unsignedBigInteger('candidate_id'); // ✅ relasi ke tabel candidates
+            $table->unsignedBigInteger('user_id')->nullable(); // kalau ada user
             $table->timestamps();
+
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
         });
+
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('votes');
+        Schema::table('votes', function (Blueprint $table) {
+            $table->unsignedBigInteger('candidate_id')->after('id');
+        });
+
     }
 };

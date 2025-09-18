@@ -2,22 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Vote extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['user_id', 'calon_id'];
+    protected $fillable = ['calon_id', 'masyarakat_id'];
 
     public function calon()
     {
         return $this->belongsTo(Calon::class);
     }
 
-    public function user()
+    public function masyarakat()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Masyarakat::class);
     }
 }

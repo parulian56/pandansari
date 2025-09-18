@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 
 class MasyarakatController extends Controller
 {
+    // ✅ Menampilkan daftar masyarakat
+    public function index()
+    {
+        $masyarakats = Masyarakat::all();
+        return view('data-people', compact('masyarakats'));
+    }
+
+    // ✅ Menyimpan data masyarakat baru
     public function store(Request $request)
     {
         $request->validate([
-            'nik' => 'required|unique:masyarakat,nik',
+            'nik' => 'required|unique:masyarakats,nik',
             'kk' => 'required',
             'nama_lengkap' => 'required',
             'tempat_tanggal_lahir' => 'required',

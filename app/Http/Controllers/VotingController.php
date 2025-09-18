@@ -2,36 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Calon;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Vote;
+use Illuminate\Http\Request;
 
 class VotingController extends Controller
 {
-    // Halaman daftar calon untuk dicoblos
     public function index()
     {
-        $calons = Calon::all(); // ambil semua calon
-        return view('voting.index', compact('calons'));
+        // ambil semua calon untuk ditampilkan di halaman coblos
+        $calons = Calon::all();
+        return view('coblos.index', compact('calons'));
     }
 
-    // Proses vote
-    public function vote(Request $request, Calon $calon)
+    public function vote(Calon $calon)
     {
-        $user = Auth::user();
-
-        // Cek apakah user sudah pernah coblos
-        if ($user->sudah_vote) {
-            return redirect()->route('voting.index')->with('error', 'Kamu sudah memilih!');
+        // cek biar 1 user / masyarakat cuma bisa milih sekali
+        if (Vote::where('masyarakat_id', auth()->id())->exists()) {
+            return redirect()->route('coblos.index')
+                ->with('error', 'Anda sudah mencoblos!');
         }
 
-        // Tambah 1 ke suara calon
-        $calon->increment('jumlah_suara');
+        // simpan suara
+        Vote::create([
+            'calon_id' => $calon->id,
+            'masyarakat_id' => auth()->id(), // ganti kalau login beda (misal pakai NIK)
+        ]);
 
-        // Tandai user sudah coblos
-        $user->sudah_vote = true;
-        $user->save();
-
-        return redirect()->route('voting.index')->with('success', 'Terima kasih sudah memilih!');
+        return redirect()->route('coblos.index')
+            ->with('success', 'Suara berhasil disimpan!');
     }
 }
